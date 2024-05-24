@@ -5,6 +5,7 @@ import br.com.quarkus.testebackend.service.TarefaService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 
@@ -42,5 +43,27 @@ public class TarefaController {
     @Path("/{id}")
     public void deletarTarefa(@PathParam("id") Long id) {
         tarefaService.deletarTarefa(id);
+    }
+
+    @PUT
+    @Path("/alocar/{tarefaId}/{pessoaId}")
+    public Response alocarPessoaNaTarefa(@PathParam("taskId") Long tarefaId, @PathParam("personId") Long pessoaId) {
+        Tarefa tarefaAtualizada = tarefaService.alocarPessoaNaTarefa(tarefaId, pessoaId);
+        if (tarefaAtualizada != null) {
+            return Response.ok(tarefaAtualizada).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    @PUT
+    @Path("/completar/{taskId}")
+    public Response tarefaCompleta(@PathParam("taskId") Long tarefaId) {
+        Tarefa tarefaCompletada = tarefaService.tarefaCompleta(tarefaId);
+        if (tarefaCompletada != null) {
+            return Response.ok(tarefaCompletada).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
     }
 }
