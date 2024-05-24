@@ -1,7 +1,7 @@
 package br.com.quarkus.testebackend.controller;
 
 import br.com.quarkus.testebackend.model.Tarefa;
-import br.com.quarkus.testebackend.services.TarefaService;
+import br.com.quarkus.testebackend.service.TarefaService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;

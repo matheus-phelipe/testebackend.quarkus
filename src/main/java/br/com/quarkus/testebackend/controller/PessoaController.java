@@ -1,7 +1,7 @@
 package br.com.quarkus.testebackend.controller;
 
 import br.com.quarkus.testebackend.model.Pessoa;
-import br.com.quarkus.testebackend.services.PessoaService;
+import br.com.quarkus.testebackend.service.PessoaService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;

@@ -1,4 +1,4 @@
-package br.com.quarkus.testebackend.services;
+package br.com.quarkus.testebackend.service;
 
 import br.com.quarkus.testebackend.model.Pessoa;
 import jakarta.enterprise.context.ApplicationScoped;
