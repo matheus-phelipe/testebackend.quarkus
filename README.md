@@ -4,6 +4,11 @@ This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
 
+## Informações do Projeto
+
+- **Java JDK**: 21.0.2
+- **Quarkus**: 3.10.2
+
 ## Running the application in dev mode
 
 You can run your application in dev mode that enables live coding using:
@@ -12,40 +17,34 @@ You can run your application in dev mode that enables live coding using:
 ```
 
 > **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
+## Regras do Projeto
 
-## Packaging and running the application
+O projeto foi desenvolvido pensando primeiramente na criação da lista de pessoas, tarefas e os departamentos (possuindo método para inclusão de departamento).
+Após a criação é necessário incluir e alocar tarefas, departamentos e pessoas entre as entidades seguindo o fluxo pedido.
+Após a inclusão e alocação de tarefas e depertamentos para as pessoas e tarefas, as requisições podem ser usadas normalmente.
 
-The application can be packaged using:
-```shell script
-./mvnw package
-```
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+## Exemplos de execução
+1. Requisição para criação de pessoa: Post:
+   {
+   "nome": "Roberto"
+   }
+2. Requisição para criação de tarefa: Post:
+   {
+   "titulo": "Implementar Ouvido",
+   "descricao": "Desenvolver a API de gerenciamento de tarefas",
+   "duracao": 5,
+   "completado": false,
+   "prazo": "2022-06-01"
+   }
+3. Requisição para alocar tarefa e pessoa: Put: http://localhost:8080/api/tarefas/alocar/{tarefaId}/{pessoaId}
+4. Requisição para excluir pessoa: Delete: http://localhost:8080/api/pessoas/{id}
+5. Requisição para alterar pessoa: Put: http://localhost:8080/api/pessoas/{pessoaId} - Body json: {
+   "nome": "Matheus"
+   }
+6. Requisição para listar 3 tarefas pendentes mais antigas: GET: http://localhost:8080/api/tarefas/pendentes
+7. Requisição para listar nome, total de horas e departamento: GET: http://localhost:8080/api/pessoas/
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
-```
-
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
-
-## Creating a native executable
-
-You can create a native executable using: 
-```shell script
-./mvnw package -Dnative
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/testebackend.quarkus-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
+E algumas outras requisições.
 
 ## Related Guides
 
