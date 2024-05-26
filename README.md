@@ -1,27 +1,27 @@
 # testebackend.quarkus
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+Este projeto usa Quarkus, o Supersonic Subatomic Java Framework.
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+Se você quiser saber mais sobre o Quarkus, visite seu site: https://quarkus.io/ .
 
 ## Informações do Projeto
 
 - **Java JDK**: 21.0.2
 - **Quarkus**: 3.10.2
 
-## Running the application in dev mode
+## Executando o aplicativo no modo dev
 
-You can run your application in dev mode that enables live coding using:
+Você pode executar seu aplicativo no modo de desenvolvimento que permite codificação ao vivo usando:
 ```shell script
 ./mvnw compile quarkus:dev
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
 ## Regras do Projeto
 
 O projeto foi desenvolvido pensando primeiramente na criação da lista de pessoas, tarefas e os departamentos (possuindo método para inclusão de departamento).
-Após a criação é necessário incluir e alocar tarefas, departamentos e pessoas entre as entidades seguindo o fluxo pedido.
-Após a inclusão e alocação de tarefas e depertamentos para as pessoas e tarefas, as requisições podem ser usadas normalmente.
+Após a criação é necessário incluir e alocar tarefas, departamentos e pessoas. Baseando-se no principio de que uma pessoa precisa estar em um departamento para ter uma tarefa, 
+uma tarefa precisa estar em um departamento para ser alocada a alguém.
+Após a inclusão e alocação de tarefas e depertamentos para as pessoas e tarefas, as requisições podem ser usadas normalmente (caso falte algo a ser cadastro ou alocado, as requisições retornarão as instruções).
 
 ## Exemplos de execução
 1. Requisição para criação de pessoa: Post:
@@ -46,7 +46,7 @@ Após a inclusão e alocação de tarefas e depertamentos para as pessoas e tare
 
 E algumas outras requisições.
 
-## Related Guides
+## Guias Relacionados
 
 - REST resources for Hibernate ORM with Panache ([guide](https://quarkus.io/guides/rest-data-panache)): Generate Jakarta REST resources for your Hibernate Panache entities and repositories
 - RESTEasy Classic JSON-B ([guide](https://quarkus.io/guides/rest-json)): JSON-B serialization support for RESTEasy Classic
