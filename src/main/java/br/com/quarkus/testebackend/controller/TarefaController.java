@@ -1,6 +1,8 @@
 package br.com.quarkus.testebackend.controller;
 
+import br.com.quarkus.testebackend.exceptions.ExceptionHandler;
 import br.com.quarkus.testebackend.model.Tarefa;
+import br.com.quarkus.testebackend.model.dtos.TarefaDTO;
 import br.com.quarkus.testebackend.service.TarefaService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -17,49 +19,45 @@ public class TarefaController {
     TarefaService tarefaService;
 
     @GET
-    public List<Tarefa> getAllTasks() {
-        return tarefaService.getAllTarefa();
-    }
-
-    @GET
-    @Path("/{id}")
-    public Tarefa getTarefaById(@PathParam("id") Long id) {
-        return tarefaService.getTarefaById(id);
+    @Path("/pendentes")
+    public Response listarTarefasPendentes() {
+        try {
+            List<TarefaDTO> tarefasDTO = tarefaService.listarTarefasPendentes();
+            return Response.ok(tarefasDTO).build();
+        } catch (ExceptionHandler e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Erro ao listar tarefas pendentes: " + e.getMessage())
+                    .build();
+        }
     }
 
     @POST
-    public Tarefa criarTarefa(Tarefa task) {
-        return tarefaService.salvarTarefa(task);
-    }
-
-    @PUT
-    @Path("/{id}")
-    public Tarefa atualizarTarefa(@PathParam("id") Long id, Tarefa tarefa) {
-        tarefa.id = id;
-        return tarefaService.salvarTarefa(tarefa);
-    }
-
-    @DELETE
-    @Path("/{id}")
-    public void deletarTarefa(@PathParam("id") Long id) {
-        tarefaService.deletarTarefa(id);
-    }
-
-    @PUT
-    @Path("/alocar/{tarefaId}/{pessoaId}")
-    public Response alocarPessoaNaTarefa(@PathParam("taskId") Long tarefaId, @PathParam("personId") Long pessoaId) {
-        Tarefa tarefaAtualizada = tarefaService.alocarPessoaNaTarefa(tarefaId, pessoaId);
-        if (tarefaAtualizada != null) {
-            return Response.ok(tarefaAtualizada).build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
+    public Response criarTarefa(Tarefa tarefa) {
+        try {
+            Tarefa novaTarefa = tarefaService.salvarTarefa(tarefa);
+            return Response.status(Response.Status.CREATED).entity(novaTarefa).build();
+        } catch (ExceptionHandler e) {
+            return Response.status(Response.Status.CONFLICT).entity(e.getMessage()).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Erro ao criar tarefa: " + e.getMessage()).build();
         }
     }
 
     @PUT
-    @Path("/completar/{taskId}")
-    public Response tarefaCompleta(@PathParam("taskId") Long tarefaId) {
-        Tarefa tarefaCompletada = tarefaService.tarefaCompleta(tarefaId);
+    @Path("/alocar/{tarefaId}/{pessoaId}")
+    public Response alocarPessoaNaTarefa(@PathParam("tarefaId") Long tarefaId, @PathParam("pessoaId") Long pessoaId) throws Exception {
+        boolean sucesso = tarefaService.alocarPessoaNaTarefa(tarefaId, pessoaId);
+        if (sucesso) {
+            return Response.ok().build();
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
+    @PUT
+    @Path("/finalizar/{taskId}")
+    public Response tarefaCompleta(@PathParam("taskId") Long tarefaId) throws Exception {
+        String tarefaCompletada = tarefaService.tarefaCompleta(tarefaId);
         if (tarefaCompletada != null) {
             return Response.ok(tarefaCompletada).build();
         } else {
