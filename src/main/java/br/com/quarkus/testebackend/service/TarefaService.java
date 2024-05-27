@@ -95,9 +95,9 @@ public class TarefaService {
         Pessoa pessoa = Pessoa.findById(pessoaId);
 
         if (tarefa == null) {
-            throw new Exception("Tarefa não encontrada!");
+            throw new ExceptionHandler("Tarefa não encontrada!");
         }else if(pessoa == null){
-            throw new Exception("Pessoa não encontrada!");
+            throw new ExceptionHandler("Pessoa não encontrada!");
         }
 
         // Verificar se os departamentos são iguais, considerando os casos de nulo
@@ -111,11 +111,11 @@ public class TarefaService {
 
             return true;
         } else if (tarefa.getDepartamento() == null) {
-            throw new Exception("Departamento não definido em tarefa!");
+            throw new ExceptionHandler("Departamento não definido em tarefa!");
         } else if (pessoa.getDepartamento() == null){
-            throw new Exception("Departamento não definido em pessoa!");
+            throw new ExceptionHandler("Departamento não definido em pessoa!");
         } else {
-            throw new Exception("Não autorizado, departamentos diferentes!");
+            throw new ExceptionHandler("Não autorizado, departamentos diferentes!");
         }
     }
 

@@ -92,6 +92,10 @@ public class PessoaService {
 
     @Transactional
     public Pessoa salvarPessoa(Pessoa pessoa) throws Exception {
+        if(pessoa.getNome().isEmpty()){
+            throw new ExceptionHandler("Nome da pessoa está vazio!");
+        }
+
         if (pessoa.id == null) {
             // Verifique se já existe uma pessoa com o mesmo nome
             Pessoa pessoaExiste = Pessoa.find("nome = :nome", Parameters.with("nome", pessoa.nome)).firstResult();
