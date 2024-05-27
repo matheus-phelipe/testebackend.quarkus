@@ -2,7 +2,6 @@ package br.com.quarkus.testebackend.controller;
 
 import br.com.quarkus.testebackend.exceptions.ExceptionHandler;
 import br.com.quarkus.testebackend.model.Departamento;
-import br.com.quarkus.testebackend.model.Tarefa;
 import br.com.quarkus.testebackend.service.DepartamentoService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -10,10 +9,9 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-import java.util.List;
 import java.util.Map;
 
-@Path("/api/departamentos")
+@Path("/departamentos")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class DepartamentoController {
