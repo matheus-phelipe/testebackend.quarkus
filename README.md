@@ -24,7 +24,7 @@ uma tarefa precisa estar em um departamento para ser alocada a alguém.
 Após a inclusão e alocação de tarefas e depertamentos para as pessoas e tarefas, as requisições podem ser usadas normalmente (caso falte algo a ser cadastro ou alocado, as requisições retornarão as instruções).
 
 ## Exemplos de execução
-1. Requisição para criação de pessoa: Post:
+1. Requisição para criação de pessoa: Post: http://localhost:8080/pessoas/
    {
    "nome": "Roberto"
    }
@@ -36,13 +36,18 @@ Após a inclusão e alocação de tarefas e depertamentos para as pessoas e tare
    "completado": false,
    "prazo": "2022-06-01"
    }
-3. Requisição para alocar tarefa e pessoa: Put: http://localhost:8080/api/tarefas/alocar/{tarefaId}/{pessoaId}
-4. Requisição para excluir pessoa: Delete: http://localhost:8080/api/pessoas/{id}
-5. Requisição para alterar pessoa: Put: http://localhost:8080/api/pessoas/{pessoaId} - Body json: {
+3. Requisição para alocar tarefa e pessoa: Put: http://localhost:8080/tarefas/alocar/{tarefaId}/{pessoaId}
+4. Requisição para excluir pessoa: Delete: http://localhost:8080/pessoas/{id}
+5. Requisição para alterar pessoa: Put: http://localhost:8080/pessoas/{pessoaId} - Body json: {
    "nome": "Matheus"
    }
-6. Requisição para listar 3 tarefas pendentes mais antigas: GET: http://localhost:8080/api/tarefas/pendentes
-7. Requisição para listar nome, total de horas e departamento: GET: http://localhost:8080/api/pessoas/
+6. Requisição para listar 3 tarefas pendentes mais antigas: GET: http://localhost:8080/tarefas/pendentes
+7. Requisição para listar nome, total de horas e departamento: GET: http://localhost:8080/pessoas/
+8. Requisição para criar departamento: POST:  http://localhost:8080/departamentos
+{
+   "nome": "Finanças"
+   }
+9. Requisição para finalizar tarefa: http://localhost:8080/tarefas/finalizar/{tarefaId}
 
 E algumas outras requisições.
 
