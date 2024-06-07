@@ -1,85 +1,139 @@
-# Gerenciamento de tarefas com Quarkus
+# Gerenciamento de Tarefas com Quarkus
 
-Este projeto usa Quarkus, o Supersonic Subatomic Java Framework.
+Este projeto utiliza Quarkus, o Supersonic Subatomic Java Framework, para gerenciar tarefas de maneira eficiente e organizada.
 
-Se você quiser saber mais sobre o Quarkus, visite seu site: https://quarkus.io/ .
+Se você quiser saber mais sobre o Quarkus, visite seu site: [Quarkus](https://quarkus.io/).
+
+## Índice
+
+- [Informações do Projeto](#informações-do-projeto)
+- [Executando o Aplicativo no Modo Dev](#executando-o-aplicativo-no-modo-dev)
+- [Regras do Projeto](#regras-do-projeto)
+- [Exemplos de Execução](#exemplos-de-execução)
+  - [Criação de Pessoa](#criação-de-pessoa)
+  - [Criação de Tarefa](#criação-de-tarefa)
+  - [Alocar Tarefa e Pessoa](#alocar-tarefa-e-pessoa)
+  - [Excluir Pessoa](#excluir-pessoa)
+  - [Alterar Pessoa](#alterar-pessoa)
+  - [Listar 3 Tarefas Pendentes Mais Antigas](#listar-3-tarefas-pendentes-mais-antigas)
+  - [Listar Nome, Total de Horas e Departamento](#listar-nome-total-de-horas-e-departamento)
+  - [Criar Departamento](#criar-departamento)
+  - [Finalizar Tarefa](#finalizar-tarefa)
+- [Guias Relacionados](#guias-relacionados)
+- [Código Fornecido](#código-fornecido)
 
 ## Informações do Projeto
 
 - **Java JDK**: 21.0.2
 - **Quarkus**: 3.10.2
 
-## Executando o aplicativo no modo dev
+## Executando o Aplicativo no Modo Dev
 
-Você pode executar seu aplicativo no modo de desenvolvimento que permite codificação ao vivo usando:
-```shell script
+Você pode executar seu aplicativo no modo de desenvolvimento, permitindo codificação ao vivo usando:
+
+```bash
 ./mvnw compile quarkus:dev
 ```
 
 ## Regras do Projeto
 
-O projeto foi desenvolvido pensando primeiramente na criação da lista de pessoas, tarefas e os departamentos (possuindo método para inclusão de departamento).
-Após a criação é necessário incluir e alocar tarefas, departamentos e pessoas. Baseando-se no principio de que uma pessoa precisa estar em um departamento para ter uma tarefa, 
-uma tarefa precisa estar em um departamento para ser alocada a alguém.
-Após a inclusão e alocação de tarefas e depertamentos para as pessoas e tarefas, as requisições podem ser usadas normalmente (caso falte algo a ser cadastro ou alocado, as requisições retornarão as instruções).
+O projeto foi desenvolvido com foco na criação de listas de pessoas, tarefas e departamentos. As principais regras incluem:
 
-## Exemplos de execução
-1. Requisição para criação de pessoa: Post: http://localhost:8080/pessoas/
-   {
-   "nome": "Roberto"
-   }
-2. Requisição para criação de tarefa: Post:
-   {
-   "titulo": "Implementar Ouvido",
-   "descricao": "Desenvolver a API de gerenciamento de tarefas",
-   "duracao": 5,
-   "completado": false,
-   "prazo": "2022-06-01"
-   }
-3. Requisição para alocar tarefa e pessoa: Put: http://localhost:8080/tarefas/alocar/{tarefaId}/{pessoaId}
-4. Requisição para excluir pessoa: Delete: http://localhost:8080/pessoas/{id}
-5. Requisição para alterar pessoa: Put: http://localhost:8080/pessoas/{pessoaId} - Body json: {
-   "nome": "Matheus"
-   }
-6. Requisição para listar 3 tarefas pendentes mais antigas: GET: http://localhost:8080/tarefas/pendentes
-7. Requisição para listar nome, total de horas e departamento: GET: http://localhost:8080/pessoas/
-8. Requisição para criar departamento: POST:  http://localhost:8080/departamentos
-{
-   "nome": "Finanças"
-   }
-9. Requisição para finalizar tarefa: http://localhost:8080/tarefas/finalizar/{tarefaId}
+- **Criação de Listas**: Primeiramente, é necessário criar listas de pessoas, tarefas e departamentos.
+- **Alocação de Recursos**: Após a criação, é preciso incluir e alocar tarefas, departamentos e pessoas.
+  - **Pessoa**: Deve estar em um departamento para ter uma tarefa.
+  - **Tarefa**: Precisa estar em um departamento para ser alocada a alguém.
 
-E algumas outras requisições.
+Caso algum recurso não esteja cadastrado ou alocado corretamente, as requisições retornarão instruções específicas.
+
+## Exemplos de Execução
+
+### Criação de Pessoa
+
+- **Requisição**: `POST`
+- **Endpoint**: `http://localhost:8080/pessoas/`
+- **Body**:
+  ```json
+  {
+    "nome": "Roberto"
+  }
+  ```
+
+### Criação de Tarefa
+
+- **Requisição**: `POST`
+- **Body**:
+  ```json
+  {
+    "titulo": "Implementar Ouvido",
+    "descricao": "Desenvolver a API de gerenciamento de tarefas",
+    "duracao": 5,
+    "completado": false,
+    "prazo": "2022-06-01"
+  }
+  ```
+
+### Alocar Tarefa e Pessoa
+
+- **Requisição**: `PUT`
+- **Endpoint**: `http://localhost:8080/tarefas/alocar/{tarefaId}/{pessoaId}`
+
+### Excluir Pessoa
+
+- **Requisição**: `DELETE`
+- **Endpoint**: `http://localhost:8080/pessoas/{id}`
+
+### Alterar Pessoa
+
+- **Requisição**: `PUT`
+- **Endpoint**: `http://localhost:8080/pessoas/{pessoaId}`
+- **Body**:
+  ```json
+  {
+    "nome": "Matheus"
+  }
+  ```
+
+### Listar 3 Tarefas Pendentes Mais Antigas
+
+- **Requisição**: `GET`
+- **Endpoint**: `http://localhost:8080/tarefas/pendentes`
+
+### Listar Nome, Total de Horas e Departamento
+
+- **Requisição**: `GET`
+- **Endpoint**: `http://localhost:8080/pessoas/`
+
+### Criar Departamento
+
+- **Requisição**: `POST`
+- **Endpoint**: `http://localhost:8080/departamentos`
+- **Body**:
+  ```json
+  {
+    "nome": "Finanças"
+  }
+  ```
+
+### Finalizar Tarefa
+
+- **Requisição**: `PUT`
+- **Endpoint**: `http://localhost:8080/tarefas/finalizar/{tarefaId}`
 
 ## Guias Relacionados
 
-- REST resources for Hibernate ORM with Panache ([guide](https://quarkus.io/guides/rest-data-panache)): Generate Jakarta REST resources for your Hibernate Panache entities and repositories
-- RESTEasy Classic JSON-B ([guide](https://quarkus.io/guides/rest-json)): JSON-B serialization support for RESTEasy Classic
-- SmallRye OpenAPI ([guide](https://quarkus.io/guides/openapi-swaggerui)): Document your REST APIs with OpenAPI - comes with Swagger UI
-- Hibernate ORM with Panache ([guide](https://quarkus.io/guides/hibernate-orm-panache)): Simplify your persistence code for Hibernate ORM via the active record or the repository pattern
-- RESTEasy Classic ([guide](https://quarkus.io/guides/resteasy)): REST endpoint framework implementing Jakarta REST and more
-- JDBC Driver - PostgreSQL ([guide](https://quarkus.io/guides/datasource)): Connect to the PostgreSQL database via JDBC
+- **[REST resources for Hibernate ORM with Panache (guide)](https://quarkus.io/guides/hibernate-orm-panache)**: Gere recursos Jakarta REST para suas entidades e repositórios Hibernate Panache.
+- **[RESTEasy Classic JSON-B (guide)](https://quarkus.io/guides/resteasy-jsonb)**: Suporte à serialização JSON-B para RESTEasy Classic.
+- **[SmallRye OpenAPI (guide)](https://quarkus.io/guides/openapi-swaggerui)**: Documente suas APIs REST com OpenAPI - vem com Swagger UI.
+- **[Hibernate ORM with Panache (guide)](https://quarkus.io/guides/hibernate-orm-panache)**: Simplifique seu código de persistência para Hibernate ORM via active record ou padrão de repositório.
+- **[RESTEasy Classic (guide)](https://quarkus.io/guides/resteasy)**: Framework de endpoint REST implementando Jakarta REST e mais.
+- **[JDBC Driver - PostgreSQL (guide)](https://quarkus.io/guides/datasource)**: Conecte-se ao banco de dados PostgreSQL via JDBC.
 
-## Provided Code
+## Código Fornecido
 
-### Hibernate ORM
-
-Create your first JPA entity
-
-[Related guide section...](https://quarkus.io/guides/hibernate-orm)
-
-[Related Hibernate with Panache section...](https://quarkus.io/guides/hibernate-orm-panache)
-
-
-### REST Data with Panache
-
-Generating Jakarta REST resources with Panache
-
-[Related guide section...](https://quarkus.io/guides/rest-data-panache)
-
-
-### RESTEasy JAX-RS
-
-Easily start your RESTful Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started#the-jax-rs-resources)
+- **Hibernate ORM**: Crie sua primeira entidade JPA.
+  - Seção relacionada no guia.
+- **REST Data with Panache**: Gerando recursos Jakarta REST com Panache.
+  - Seção relacionada no guia.
+- **RESTEasy JAX-RS**: Inicie facilmente seus Serviços Web RESTful.
+  - Seção relacionada no guia.
