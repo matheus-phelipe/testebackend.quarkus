@@ -1,4 +1,4 @@
-# testebackend.quarkus
+# Gerenciamento de tarefas com Quarkus
 
 Este projeto usa Quarkus, o Supersonic Subatomic Java Framework.
 
